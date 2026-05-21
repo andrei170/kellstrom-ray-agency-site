@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kellstrom-Ray Agency | Door County Real Estate Since 1948</title>
+  <meta property="og:title" content="Kellstrom-Ray Agency | Door County Real Estate Since 1948">
+  <meta property="og:description" content="Door County's original independent real estate agency. Founded 1948 in Sister Bay.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://andrei170.github.io/kellstrom-ray-agency-site/">
+  <meta property="og:image" content="https://doorcountypulse.com/wp-content/uploads/2018/03/KRay-OfficeWEB.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://doorcountypulse.com/wp-content/uploads/2018/03/KRay-OfficeWEB.jpg">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230f172a'/><text x='32' y='44' font-size='38' font-family='Georgia,serif' fill='%23ffffff' text-anchor='middle'>K</text></svg>">
+
 <meta name="description" content="Door County's original independent real estate agency. Founded 1948 in Sister Bay. Northern Door County waterfront, Washington Island, and every community in between.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,6 +57,7 @@
     background: var(--ivory);
     line-height: 1.68;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
   img { display: block; max-width: 100%; }
   a  { color: var(--cedar); text-decoration: none; }
@@ -141,25 +151,22 @@
   .nav-cta:hover { background: var(--brass-lt) !important; text-decoration: none !important; }
 
   /* ==========================================
-     HERO
+     HERO - CINEMATIC 100VH KEN BURNS
   ========================================== */
   .hero {
     position: relative;
-    min-height: 94vh;
+    height: 100vh;
+    min-height: 560px;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
   }
+
+  /* Gradient fallback behind the photo */
   .hero-bg {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(
-        180deg,
-        rgba(12,35,64,0.18) 0%,
-        rgba(12,35,64,0.52) 55%,
-        rgba(12,35,64,0.82) 100%
-      ),
       linear-gradient(
         135deg,
         #c8dce8 0%,
@@ -170,7 +177,8 @@
       );
     z-index: 0;
   }
-  /* Real photo: Heather Collins / Sister Bay office from Door County Pulse CDN */
+
+  /* Ken Burns photo layer */
   .hero-img {
     position: absolute;
     inset: 0;
@@ -179,19 +187,39 @@
     object-fit: cover;
     object-position: center 30%;
     z-index: 1;
-    opacity: 0.55;
+    transform-origin: center center;
   }
-  .hero-overlay {
+
+  /* Ken Burns animation - only when motion is OK */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-img {
+      animation: kenburns 18s ease-out forwards;
+    }
+    @keyframes kenburns {
+      0%   { transform: scale(1.12) translate(2%, 1%); }
+      100% { transform: scale(1.0)  translate(0%, 0%); }
+    }
+  }
+  /* Reduced motion: static image, no animation */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-img {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  .hero-scrim {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to top,
-      rgba(12,35,64,0.88) 0%,
-      rgba(12,35,64,0.45) 50%,
+      rgba(12,35,64,0.90) 0%,
+      rgba(12,35,64,0.48) 45%,
       rgba(12,35,64,0.08) 100%
     );
     z-index: 2;
   }
+
   .hero-content {
     position: relative;
     z-index: 3;
@@ -340,10 +368,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal { opacity: 0; transform: translateY(24px); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-  }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
   }
@@ -406,6 +430,11 @@
     box-shadow: var(--shadow-lg);
     object-fit: cover;
     aspect-ratio: 4 / 3;
+    cursor: zoom-in;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .about-photo-main:hover { transform: scale(1.015); box-shadow: 0 24px 64px rgba(12,35,64,0.18); }
   }
   .about-photo-accent {
     position: absolute;
@@ -417,6 +446,11 @@
     border: 4px solid var(--white);
     object-fit: cover;
     aspect-ratio: 1 / 1;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .about-photo-accent:hover { transform: scale(1.04); }
   }
   .about-badge {
     position: absolute;
@@ -474,7 +508,7 @@
   }
 
   /* ==========================================
-     TEAM / SOCIAL PROOF
+     PROOF / DARK BAND
   ========================================== */
   .proof-band {
     display: grid;
@@ -507,7 +541,221 @@
   }
 
   /* ==========================================
-     TEAM CARDS
+     FULL-BLEED PHOTO BAND (~60vh)
+  ========================================== */
+  .photo-band {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 60vh;
+    min-height: 340px;
+    max-height: 680px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .photo-band-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 55%;
+    display: block;
+  }
+  .photo-band-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(12,35,64,0.72) 0%,
+      rgba(12,35,64,0.18) 55%,
+      rgba(12,35,64,0.0) 100%
+    );
+    z-index: 1;
+  }
+  .photo-band-caption {
+    position: relative;
+    z-index: 2;
+    padding: 2rem 2.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .photo-band-caption p {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+    color: var(--ivory);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    margin: 0 0 0.5rem;
+  }
+  .photo-band-caption span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brass-lt);
+  }
+
+  /* ==========================================
+     GALLERY LIGHTBOX
+  ========================================== */
+  .gallery-section {
+    padding: 4.5rem 0;
+    background: var(--ivory-dk);
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    cursor: zoom-in;
+    box-shadow: var(--shadow-sm);
+    background: var(--navy-mid);
+  }
+  .gallery-item img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery-item:hover img { transform: scale(1.06); }
+  }
+  .gallery-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(12,35,64,0);
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery-item:hover .gallery-item-overlay {
+      background: rgba(12,35,64,0.28);
+    }
+  }
+  .gallery-zoom-icon {
+    opacity: 0;
+    color: var(--ivory);
+    transition: opacity 0.3s;
+    background: rgba(12,35,64,0.55);
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .gallery-item:hover .gallery-zoom-icon { opacity: 1; }
+  }
+  .gallery-item-wide {
+    grid-column: span 2;
+  }
+  .gallery-item-wide img {
+    aspect-ratio: 16 / 7;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(7,22,42,0.96);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .lightbox.open {
+    display: flex;
+  }
+  .lightbox-img-wrap {
+    position: relative;
+    max-width: 1100px;
+    max-height: 88vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox-img-wrap img {
+    max-width: 100%;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.55);
+    display: block;
+  }
+  .lightbox-caption {
+    position: absolute;
+    bottom: -2.2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.82rem;
+    color: rgba(200,220,232,0.7);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .lightbox-close {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    color: var(--ivory);
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+  .lightbox-prev,
+  .lightbox-next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ivory);
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+  }
+  .lightbox-prev { left: 1rem; }
+  .lightbox-next { right: 1rem; }
+  .lightbox-prev:hover,
+  .lightbox-next:hover { background: rgba(255,255,255,0.22); }
+
+  /* ==========================================
+     TEAM / SOCIAL PROOF
   ========================================== */
   .broker-feature {
     display: grid;
@@ -529,17 +777,7 @@
     border: 4px solid var(--brass-lt);
     box-shadow: var(--shadow-md);
     flex-shrink: 0;
-  }
-  .broker-photo-placeholder {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--lake) 0%, var(--lake-dk) 100%);
-    border: 4px solid var(--brass-lt);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    cursor: zoom-in;
   }
   .broker-name {
     font-family: var(--font-serif);
@@ -707,26 +945,7 @@
   }
 
   /* ==========================================
-     OFFICE PHOTO STRIP
-  ========================================== */
-  .office-photo-strip {
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-  }
-  .office-photo-strip img {
-    width: 100%;
-    height: 340px;
-    object-fit: cover;
-    object-position: center 55%;
-    display: block;
-  }
-  @media (max-width: 640px) {
-    .office-photo-strip img { height: 220px; }
-  }
-
-  /* ==========================================
-     QUOTE / HERO PHOTO SECTION
+     QUOTE / PHOTO SECTION
   ========================================== */
   .photo-quote {
     position: relative;
@@ -897,11 +1116,15 @@
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .proof-band { grid-template-columns: repeat(3,1fr); }
     .broker-feature { grid-template-columns: 1fr; text-align: center; }
-    .broker-photo, .broker-photo-placeholder { margin: 0 auto; }
+    .broker-photo { margin: 0 auto; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item-wide { grid-column: span 2; }
+    .lightbox-prev { left: 0.25rem; }
+    .lightbox-next { right: 0.25rem; }
   }
   @media (max-width: 640px) {
     .section { padding: 3.5rem 0; }
-    .hero { min-height: 100svh; }
+    .hero { height: 100svh; }
     .hero-content { padding-bottom: 3rem; }
     .hero-stats { gap: 1.5rem; }
     .header-nav { display: none; }
@@ -912,6 +1135,13 @@
     .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
     .footer-bottom { flex-direction: column; align-items: flex-start; }
     .footer-demo { text-align: left; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item-wide { grid-column: span 1; }
+    .gallery-item-wide img { aspect-ratio: 4 / 3; }
+    .photo-band { height: 50vh; }
+    .photo-band-caption { padding: 1.5rem; }
+    .lightbox-prev,
+    .lightbox-next { display: none; }
   }
 </style>
 </head>
@@ -937,7 +1167,7 @@
 </header>
 
 <!-- ==========================================
-     HERO
+     HERO - 100VH KEN BURNS
 ========================================== -->
 <section class="hero" id="top" aria-label="Hero">
   <div class="hero-bg" aria-hidden="true"></div>
@@ -948,14 +1178,15 @@
     class="hero-img"
     width="800"
     height="533"
+    fetchpriority="high"
   >
-  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Door County, Wisconsin Since 1948</div>
     <h1>Your Door County home starts with people <em>who know this place</em>.</h1>
     <p class="hero-sub">Sister Bay. Washington Island. The whole Northern Door peninsula. Three owners in 78 years, seven associates with 147 combined years of experience, and the only agency with a physical office on Washington Island.</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary btn-lg">Get a Free Quote</a>
+      <a href="#contact" class="btn-primary btn-lg">Get a Free Consultation</a>
       <a href="#coverage" class="btn-ghost btn-lg">See Coverage Areas</a>
     </div>
     <div class="hero-stats">
@@ -991,7 +1222,6 @@
     <div class="coverage-grid">
 
       <div class="coverage-card reveal">
-        <!-- Home icon -->
         <svg class="coverage-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true">
           <path d="M7 20L22 7l15 13v17a2 2 0 01-2 2H9a2 2 0 01-2-2V20z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
           <rect x="16" y="28" width="6" height="9" rx="1" stroke="currentColor" stroke-width="2"/>
@@ -1002,7 +1232,6 @@
       </div>
 
       <div class="coverage-card reveal">
-        <!-- Water / waterfront icon -->
         <svg class="coverage-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true">
           <path d="M4 32c3-4 7-4 10 0s7 4 10 0 7-4 10 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           <path d="M22 8v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1014,7 +1243,6 @@
       </div>
 
       <div class="coverage-card reveal">
-        <!-- Lot / land icon -->
         <svg class="coverage-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true">
           <rect x="6" y="30" width="32" height="8" rx="2" stroke="currentColor" stroke-width="2"/>
           <path d="M12 30V18l10-10 10 10v12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -1025,7 +1253,6 @@
       </div>
 
       <div class="coverage-card reveal">
-        <!-- Business / commercial icon -->
         <svg class="coverage-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true">
           <rect x="5" y="14" width="34" height="24" rx="2" stroke="currentColor" stroke-width="2"/>
           <path d="M14 14V9a2 2 0 012-2h12a2 2 0 012 2v5" stroke="currentColor" stroke-width="2"/>
@@ -1037,18 +1264,16 @@
       </div>
 
       <div class="coverage-card reveal">
-        <!-- Ferry / island icon -->
         <svg class="coverage-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true">
           <path d="M8 32l4-10h20l4 10H8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
           <path d="M22 22V12M22 12l-5 5M22 12l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M4 36h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
         <h3>Washington Island</h3>
-        <p>We are the only agency with a physical office on Washington Island. Whether you are buying, selling, or just exploring what the island has to offer, you work with agents who are there.</p>
+        <p>We are the only agency with a physical office on Washington Island. Whether you are buying, selling, or just exploring the island, you work with agents who are already there.</p>
       </div>
 
       <div class="coverage-card reveal">
-        <!-- Buyer services icon -->
         <svg class="coverage-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true">
           <circle cx="22" cy="16" r="8" stroke="currentColor" stroke-width="2"/>
           <path d="M6 38c0-7.732 7.163-14 16-14s16 6.268 16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1078,6 +1303,8 @@
           loading="lazy"
           width="990"
           height="660"
+          data-lightbox="true"
+          data-caption="Heather Collins - Principal Broker and Owner, Kellstrom-Ray Agency"
         >
         <!-- Real photo: Kellstrom-Ray Agency sign, Sister Bay (sisterbay.com) -->
         <img
@@ -1087,6 +1314,8 @@
           loading="lazy"
           width="600"
           height="600"
+          data-lightbox="true"
+          data-caption="Kellstrom-Ray Agency - Sister Bay Office Sign"
         >
         <div class="about-badge">
           <span class="about-badge-num">78</span>
@@ -1147,17 +1376,159 @@
 </section>
 
 <!-- ==========================================
-     OFFICE PHOTO STRIP
+     FULL-BLEED PHOTO BAND (~60vh)
 ========================================== -->
-<div class="office-photo-strip" aria-hidden="true">
-  <!-- Real photo: Kellstrom-Ray Agency office exterior, autumn, Sister Bay (doorcountynorth.org) -->
+<div class="photo-band" aria-label="Kellstrom-Ray Agency office in Sister Bay">
+  <!-- Real photo: office exterior, autumn, Sister Bay (doorcountynorth.org) -->
   <img
+    class="photo-band-img"
     src="https://doorcountynorth.org/wp-content/uploads/KellstromRay-Agency-website.jpg"
     alt="Kellstrom-Ray Agency office building in Sister Bay, Door County Wisconsin"
     loading="lazy"
     width="740"
     height="555"
+    data-lightbox="true"
+    data-caption="Kellstrom-Ray Agency - Sister Bay headquarters"
   >
+  <div class="photo-band-scrim" aria-hidden="true"></div>
+  <div class="photo-band-caption reveal">
+    <p>Seventy-eight years rooted in one place, because Door County real estate deserves someone who actually lives here.</p>
+    <span>Sister Bay headquarters, open since 1948</span>
+  </div>
+</div>
+
+<!-- ==========================================
+     PHOTO GALLERY
+========================================== -->
+<section class="gallery-section" id="gallery" aria-labelledby="gallery-heading">
+  <div class="container">
+    <span class="section-tag">A Look Inside</span>
+    <h2 id="gallery-heading">The agency, in its own setting.</h2>
+    <div class="divider"></div>
+    <div class="gallery-grid">
+
+      <!-- Wide: office summer exterior -->
+      <div class="gallery-item gallery-item-wide reveal"
+           data-lightbox="true"
+           data-src="https://sisterbay.com/wp-content/uploads/SB-Member-Services-KellstromRay-Feature_840x378.jpg"
+           data-caption="Kellstrom-Ray Agency - Sister Bay office, summer">
+        <img
+          src="https://sisterbay.com/wp-content/uploads/SB-Member-Services-KellstromRay-Feature_840x378.jpg"
+          alt="Kellstrom-Ray Agency Sister Bay office exterior in summer"
+          loading="lazy"
+          width="840"
+          height="378"
+        >
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14.5 14.5L20 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9 6v6M6 9h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Heather Collins portrait -->
+      <div class="gallery-item reveal"
+           data-lightbox="true"
+           data-src="https://doorcountypulse.com/wp-content/uploads/2023/06/Heather-Collins-broker_owner-e1685638858914-990x660.jpg"
+           data-caption="Heather Collins - Principal Broker and Owner, Kellstrom-Ray Agency">
+        <img
+          src="https://doorcountypulse.com/wp-content/uploads/2023/06/Heather-Collins-broker_owner-e1685638858914-990x660.jpg"
+          alt="Heather Collins, Principal Broker, Kellstrom-Ray Agency"
+          loading="lazy"
+          width="990"
+          height="660"
+        >
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14.5 14.5L20 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9 6v6M6 9h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Office sign -->
+      <div class="gallery-item reveal"
+           data-lightbox="true"
+           data-src="https://sisterbay.com/wp-content/uploads/18670866_1908110009470857_7104862234327742952_n.jpg"
+           data-caption="Kellstrom-Ray Agency - Sister Bay office sign">
+        <img
+          src="https://sisterbay.com/wp-content/uploads/18670866_1908110009470857_7104862234327742952_n.jpg"
+          alt="Kellstrom-Ray Agency, Inc. sign in front of the Sister Bay office"
+          loading="lazy"
+          width="600"
+          height="600"
+        >
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14.5 14.5L20 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9 6v6M6 9h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wide: office autumn -->
+      <div class="gallery-item gallery-item-wide reveal"
+           data-lightbox="true"
+           data-src="https://doorcountynorth.org/wp-content/uploads/KellstromRay-Agency-website.jpg"
+           data-caption="Kellstrom-Ray Agency - Sister Bay, autumn">
+        <img
+          src="https://doorcountynorth.org/wp-content/uploads/KellstromRay-Agency-website.jpg"
+          alt="Kellstrom-Ray Agency office in Sister Bay, autumn"
+          loading="lazy"
+          width="740"
+          height="555"
+        >
+        <div class="gallery-item-overlay">
+          <div class="gallery-zoom-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M14.5 14.5L20 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9 6v6M6 9h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gradient placeholder: office interior / Washington Island -->
+      <div class="gallery-item reveal" style="cursor:default;">
+        <div style="aspect-ratio:4/3; background: linear-gradient(135deg, var(--navy) 0%, var(--lake-dk) 60%, var(--lake) 100%); display:flex; align-items:center; justify-content:center; padding:2rem; text-align:center;">
+          <div>
+            <svg width="40" height="40" viewBox="0 0 44 44" fill="none" style="margin:0 auto 1rem; color:rgba(200,220,232,0.5);" aria-hidden="true">
+              <path d="M8 32l4-10h20l4 10H8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <path d="M22 22V12M22 12l-5 5M22 12l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M4 36h36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p style="color:rgba(200,220,232,0.6); font-size:0.85rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin:0; line-height:1.5;">Washington Island<br>Branch Office</p>
+          </div>
+        </div>
+        <div class="gallery-item-overlay" style="pointer-events:none;"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================
+     LIGHTBOX (shared)
+========================================== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous photo">&#8592;</button>
+  <div class="lightbox-img-wrap">
+    <img src="" alt="" id="lightboxImg">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+  <button class="lightbox-next" id="lightboxNext" aria-label="Next photo">&#8594;</button>
 </div>
 
 <!-- ==========================================
@@ -1165,7 +1536,7 @@
 ========================================== -->
 <div class="photo-quote" aria-label="Principal Broker statement">
   <div class="pq-bg" aria-hidden="true"></div>
-  <!-- Real photo: Kellstrom-Ray Agency exterior, Sister Bay summer (sisterbay.com) -->
+  <!-- Real photo: office exterior, summer (sisterbay.com) -->
   <img
     src="https://sisterbay.com/wp-content/uploads/SB-Member-Services-KellstromRay-Feature_840x378.jpg"
     alt="Kellstrom-Ray Agency office exterior in summer, Sister Bay Wisconsin"
@@ -1192,7 +1563,7 @@
     <p class="section-intro">Our seven full-time associates bring 147 combined years of Door County real estate experience. That is not a marketing line. It means the agent sitting across from you has been through every kind of transaction this market offers.</p>
 
     <div class="broker-feature reveal">
-      <!-- Real photo: Heather Collins -->
+      <!-- Real photo: Heather Collins, Door County Pulse CDN -->
       <img
         src="https://doorcountypulse.com/wp-content/uploads/2023/06/Heather-Collins-broker_owner-e1685638858914-990x660.jpg"
         alt="Heather Collins, Principal Broker, Kellstrom-Ray Agency"
@@ -1200,6 +1571,8 @@
         loading="lazy"
         width="990"
         height="660"
+        data-lightbox="true"
+        data-caption="Heather Collins - Principal Broker and Owner"
       >
       <div>
         <div class="broker-title">Principal Broker and Owner</div>
@@ -1293,7 +1666,6 @@
         </div>
         <div class="office-body">
           <div class="office-row">
-            <!-- Pin icon -->
             <svg class="office-icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M9 1a5.5 5.5 0 015.5 5.5C14.5 11 9 17 9 17S3.5 11 3.5 6.5A5.5 5.5 0 019 1z" stroke="currentColor" stroke-width="1.5"/>
               <circle cx="9" cy="6.5" r="2" stroke="currentColor" stroke-width="1.5"/>
@@ -1305,7 +1677,6 @@
             </div>
           </div>
           <div class="office-row">
-            <!-- Phone icon -->
             <svg class="office-icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <path d="M3 3h4l2 4-2.5 1.5A10 10 0 0011.5 13.5L13 11l4 2v4a1 1 0 01-1 1C7 18 0 11 0 4a1 1 0 011-1h2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
             </svg>
@@ -1315,7 +1686,6 @@
             </div>
           </div>
           <div class="office-row">
-            <!-- Clock icon -->
             <svg class="office-icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.5"/>
               <path d="M9 4.5V9l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1327,7 +1697,6 @@
             </div>
           </div>
           <div class="office-row">
-            <!-- Globe icon -->
             <svg class="office-icon" viewBox="0 0 18 18" fill="none" aria-hidden="true">
               <circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="1.5"/>
               <path d="M9 1.5C9 1.5 6 5 6 9s3 7.5 3 7.5M9 1.5C9 1.5 12 5 12 9s-3 7.5-3 7.5M1.5 9h15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -1446,7 +1815,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-legal">Kellstrom-Ray Agency, Inc. is a Wisconsin licensed real estate firm regulated under Wis. Stat. ch. 452 and Wisconsin Real Estate Examining Board (REEB) administrative code. Equal Housing Opportunity. Photography sourced from doorcountypulse.com with attribution.</p>
+      <p class="footer-legal">Kellstrom-Ray Agency, Inc. is a Wisconsin licensed real estate firm regulated under Wis. Stat. ch. 452 and Wisconsin Real Estate Examining Board (REEB) administrative code. Equal Housing Opportunity. Photography sourced from doorcountypulse.com, doorcountynorth.org, and sisterbay.com with attribution.</p>
       <p class="footer-demo">Demo site prepared by <a href="https://andrei170.github.io/ag1/#services">AG Consulting</a></p>
     </div>
   </div>
@@ -1459,35 +1828,102 @@
 (function () {
   'use strict';
 
-  /* Sticky header condensing */
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- Sticky header condensing ---- */
   var header = document.getElementById('siteHeader');
   function onScroll() {
-    if (window.scrollY > 60) {
-      header.classList.add('condensed');
-    } else {
-      header.classList.remove('condensed');
-    }
+    header.classList.toggle('condensed', window.scrollY > 60);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* Scroll reveal */
-  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReduced) {
-    var targets = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-      targets.forEach(function (el) { observer.observe(el); });
-    } else {
-      targets.forEach(function (el) { el.classList.add('visible'); });
-    }
+  /* ---- Scroll reveal ---- */
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      el.classList.add('visible');
+    });
   }
+
+  /* ---- Lightbox ---- */
+  var lightbox     = document.getElementById('lightbox');
+  var lightboxImg  = document.getElementById('lightboxImg');
+  var lightboxCap  = document.getElementById('lightboxCaption');
+  var lightboxClose = document.getElementById('lightboxClose');
+  var lightboxPrev  = document.getElementById('lightboxPrev');
+  var lightboxNext  = document.getElementById('lightboxNext');
+
+  // Collect all lightbox items in order
+  var galleryItems = [];
+  document.querySelectorAll('[data-lightbox="true"]').forEach(function (el) {
+    var src     = el.dataset.src || el.src || el.querySelector('img').src;
+    var caption = el.dataset.caption || el.alt || (el.querySelector('img') ? el.querySelector('img').alt : '');
+    galleryItems.push({ src: src, caption: caption, el: el });
+  });
+
+  var currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    var item = galleryItems[index];
+    lightboxImg.src = item.src;
+    lightboxImg.alt = item.caption;
+    lightboxCap.textContent = item.caption;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+  }
+
+  function showPrev() {
+    var idx = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+    openLightbox(idx);
+  }
+
+  function showNext() {
+    var idx = (currentIndex + 1) % galleryItems.length;
+    openLightbox(idx);
+  }
+
+  galleryItems.forEach(function (item, idx) {
+    item.el.addEventListener('click', function () {
+      openLightbox(idx);
+    });
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', showPrev);
+  lightboxNext.addEventListener('click', showNext);
+
+  // Click outside image to close
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', function (e) {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape' || e.key === 'Esc') closeLightbox();
+    if (e.key === 'ArrowLeft')  showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
+
 })();
 </script>
 
