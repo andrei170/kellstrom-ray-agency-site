@@ -707,6 +707,25 @@
   }
 
   /* ==========================================
+     OFFICE PHOTO STRIP
+  ========================================== */
+  .office-photo-strip {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .office-photo-strip img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    object-position: center 55%;
+    display: block;
+  }
+  @media (max-width: 640px) {
+    .office-photo-strip img { height: 220px; }
+  }
+
+  /* ==========================================
      QUOTE / HERO PHOTO SECTION
   ========================================== */
   .photo-quote {
@@ -1060,14 +1079,14 @@
           width="990"
           height="660"
         >
-        <!-- Office photo as accent -->
+        <!-- Real photo: Kellstrom-Ray Agency sign, Sister Bay (sisterbay.com) -->
         <img
-          src="https://doorcountypulse.com/wp-content/uploads/2018/03/KRay-OfficeWEB.jpg"
-          alt="Kellstrom-Ray Agency office, Sister Bay"
+          src="https://sisterbay.com/wp-content/uploads/18670866_1908110009470857_7104862234327742952_n.jpg"
+          alt="Kellstrom-Ray Agency, Inc. sign in front of the Sister Bay office"
           class="about-photo-accent"
           loading="lazy"
-          width="800"
-          height="533"
+          width="600"
+          height="600"
         >
         <div class="about-badge">
           <span class="about-badge-num">78</span>
@@ -1128,17 +1147,32 @@
 </section>
 
 <!-- ==========================================
+     OFFICE PHOTO STRIP
+========================================== -->
+<div class="office-photo-strip" aria-hidden="true">
+  <!-- Real photo: Kellstrom-Ray Agency office exterior, autumn, Sister Bay (doorcountynorth.org) -->
+  <img
+    src="https://doorcountynorth.org/wp-content/uploads/KellstromRay-Agency-website.jpg"
+    alt="Kellstrom-Ray Agency office building in Sister Bay, Door County Wisconsin"
+    loading="lazy"
+    width="740"
+    height="555"
+  >
+</div>
+
+<!-- ==========================================
      QUOTE SECTION
 ========================================== -->
 <div class="photo-quote" aria-label="Principal Broker statement">
   <div class="pq-bg" aria-hidden="true"></div>
+  <!-- Real photo: Kellstrom-Ray Agency exterior, Sister Bay summer (sisterbay.com) -->
   <img
-    src="https://doorcountypulse.com/wp-content/uploads/2018/03/KRay-OfficeWEB.jpg"
-    alt="Kellstrom-Ray Agency Sister Bay office"
+    src="https://sisterbay.com/wp-content/uploads/SB-Member-Services-KellstromRay-Feature_840x378.jpg"
+    alt="Kellstrom-Ray Agency office exterior in summer, Sister Bay Wisconsin"
     class="pq-img"
     loading="lazy"
-    width="800"
-    height="533"
+    width="840"
+    height="378"
   >
   <div class="pq-overlay" aria-hidden="true"></div>
   <div class="pq-content reveal">
